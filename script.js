@@ -27,7 +27,7 @@ function generatePassword() {
       numCharacter = parseInt (numCharacter);
 
     if (numCharacter < 8 || numCharacter > 128 || isNaN(numCharacter)){
-        alert("Please select valid entry");
+        alert("Please select valid entry"); // user must select a valid entry between 8-128 in length, no non-numerical answers
         inputFlag = false;  
       }
       console.log(inputFlag);
@@ -44,7 +44,7 @@ function generatePassword() {
 
         if (characters === false && numbers === false && uppercases === false && lowercases === false){
             characterType = false;
-            alert("Please make a selection"); //none were chosen
+            alert("Please make a selection"); //user MUST make at least one selection
         }
     } while (characterType === false);
     

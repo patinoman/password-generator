@@ -87,6 +87,10 @@ header {
   text-align: center;
   cursor: pointer;
 }
+button:focus {
+    border: none;
+    outline: none;
+}
 
 button[disabled] {
   cursor: default;
