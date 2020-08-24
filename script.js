@@ -1,7 +1,9 @@
 // Assignment Code
-var inputFlag = true;
-var characterType = true;
 
+var userInput = "";
+var inputFlag = true;
+// inputFlag was inserted in case an invalid entry was selected
+var characterType = true;
 var generateBtn = document.querySelector("#generate");
 
 function generatePassword() {
@@ -16,7 +18,9 @@ function generatePassword() {
   var resultArray = [];
   var userArray = [];
 
-  // uppercaseCharacters [1]
+
+  //do...while taken from https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/do...while
+  //in case user selects an invalid answer or character
   do{
     inputFlag = true;
     var numCharacter = prompt ("How many characters would you like your password to contain? (8-128)");
@@ -30,7 +34,7 @@ function generatePassword() {
   } while (inputFlag === false);
 
 
-
+//do...while was added in case user selects none of the options
     do{
         characterType = true;
         var characters = confirm ("Click OK to confirm including special characters");
@@ -40,7 +44,7 @@ function generatePassword() {
 
         if (characters === false && numbers === false && uppercases === false && lowercases === false){
             characterType = false;
-            alert("Please make a selection");
+            alert("Please make a selection"); //none were chosen
         }
     } while (characterType === false);
     
@@ -49,23 +53,32 @@ function generatePassword() {
 
   // ARRAY SECTION
 
+
   if (numbers){
     resultArray = resultArray.concat(numericCharacters);
+    userArray.push(numericCharacters[Math.floor(Math.random() * numericCharacters.length)])
+    numCharacter = numCharacter - 1;
     }
 
 
   if (uppercases){
     resultArray = resultArray.concat(uppercaseCharacters);
+    userArray.push(uppercaseCharacters[Math.floor(Math.random() * uppercaseCharacters.length)]);
+    numCharacter = numCharacter - 1;
   }
 
 
   if (lowercases){
     resultArray = resultArray.concat(lowercaseCharacters);
+    userArray.push(lowercaseCharacters[Math.floor(Math.random() * lowercaseCharacters.length)]);
+    numCharacter = numCharacter - 1;
   }
 
 
   if (characters){
     resultArray = resultArray.concat(specialCharacters);
+    userArray.push(specialCharacters[Math.floor(Math.random() * specialCharacters.length)]);
+    numCharacter = numCharacter - 1;
   }
 
   console.log(resultArray)
@@ -75,12 +88,23 @@ function generatePassword() {
         
       userArray.push (resultArray[Math.floor(Math.random() * resultArray.length)]); 
     }  
-
-      return userArray.join("") ;
+    userArray = shuffle(userArray);
+    return userArray.join("") ;
 
 
 }  
 
+
+//https://javascript.info/task/shuffle/
+//the following code was taken from this snippet to truly randomize my password generator
+
+function shuffle(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+      let j = Math.floor(Math.random() * (i + 1));
+      [array[i], array[j]] = [array[j], array[i]];
+    }
+    return array;
+  }
 // Write password to the #password input
 
 function writePassword() {
